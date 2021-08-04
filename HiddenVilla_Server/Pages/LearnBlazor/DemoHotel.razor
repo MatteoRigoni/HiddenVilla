@@ -1,0 +1,73 @@
+﻿@page "/demoHotel"
+@using Model;
+@*@using HiddenVilla_Server.Pages.LearnBlazor.Components;*@
+
+<h3>List of hotel rooms</h3>
+<div class="border p-2 mt-2 bg-info">
+    <h2 class="text-white">Rooms list [USING COMPONENTS]</h2>
+    <div class="text-white">Rooms selected - @SelectedRooms</div>
+    <div class="row container">
+        @foreach (var room in rooms)
+        {
+            <HiddenVilla_Server.Pages.LearnBlazor.Components.Room OnRoomCheckBoxSelection="RoomSelectionCounterChanged"  CurrentRoom="room">
+            </HiddenVilla_Server.Pages.LearnBlazor.Components.Room>
+        }
+    </div>
+</div>
+
+
+@code{
+    List<Model.Room> rooms = new List<Model.Room>();
+    public int SelectedRooms { get; set; } = 0;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        rooms.Add(new Model.Room()
+        {
+            Id = 1,
+            Name = "Suite",
+            IsActive = true,
+            Price = 250,
+            Props = new List<Model.RoomProp>()
+{
+                new Model.RoomProp()
+                {
+                    Id=1, Name = "mq", Value = "25"
+                },
+                new Model.RoomProp()
+                {
+                    Id=2, Name = "persons", Value = "3"
+                }
+            }
+        });
+
+        rooms.Add(new Model.Room()
+        {
+            Id = 1,
+            Name = "Economy",
+            IsActive = true,
+            Price = 90,
+            Props = new List<Model.RoomProp>()
+{
+                new Model.RoomProp()
+                {
+                    Id=1, Name = "mq", Value = "10"
+                },
+                new Model.RoomProp()
+                {
+                    Id=2, Name = "persons", Value = "1"
+                }
+            }
+        });
+    }
+
+    protected void RoomSelectionCounterChanged(bool isRoomSelected)
+    {
+        if (isRoomSelected)
+            SelectedRooms++;
+        else
+            SelectedRooms--;
+    }
+}

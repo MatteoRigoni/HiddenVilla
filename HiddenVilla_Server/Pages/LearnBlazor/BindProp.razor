@@ -1,0 +1,117 @@
+﻿@page "/bindprop"
+@using Model;
+
+<div class="bg-light border p-2">
+    <h2 class="bg-light border p-2">
+        Room: @room.Name
+    </h2>
+    Price: @room.Price &nbsp;
+    <input type="number" @bind-value="@room.Price" @bind-value:event="oninput" />
+    <br /> 
+    <input type="checkbox" @bind-value="@room.IsActive" checked="@(room.IsActive ? "true" : null)" /> &nbsp; Set as active
+    <span> (This room is @(room.IsActive ? "active" : "inactive"))</span>
+    <br /> 
+    <select @bind="selectedRoomProp">
+        @foreach (var prop in room.Props)
+        {
+            <option value="@prop.Name">@prop.Name</option>
+        }
+    </select>
+    <span>The room prop selected is: @selectedRoomProp</span>
+</div>
+
+<div>
+    <br />
+    <h2 class="text-info">Room list</h2>
+    <table class="table table-dark">
+        @foreach (var room in rooms)
+        {
+            <tr>
+                <td>
+                    <input type="text" @bind-value="room.Name" @bind-value:event="oninput" />
+                </td>
+                <td>
+                    <input type="number" @bind-value="room.Price" @bind-value:event="oninput" />
+                </td>
+                @foreach (var roomProp in room.Props)
+                {
+                    <td>@roomProp.Name: @roomProp.Value</td>
+                }
+            </tr>
+        }
+    </table>
+    <br />
+    @foreach (var room in rooms)
+    {
+        <p>@room.Name's price is @room.Price</p>
+    }
+</div>
+
+
+
+@code{
+    string selectedRoomProp = "";
+    List<Model.Room> rooms = new List<Model.Room>();
+
+    Model.Room room = new Model.Room()
+    {
+        Id = 1,
+        Name = "Standard",
+        IsActive = false,
+        Price = 150,
+        Props = new List<Model.RoomProp>()
+{
+                new Model.RoomProp()
+                {
+                    Id=1, Name = "mq", Value = "20"
+                },
+                new Model.RoomProp()
+                {
+                    Id=2, Name = "persons", Value = "2"
+                }
+            }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        rooms.Add(new Model.Room()
+        {
+            Id = 1,
+            Name = "Suite",
+            IsActive = true,
+            Price = 250,
+            Props = new List<Model.RoomProp>()
+{
+                new Model.RoomProp()
+                {
+                    Id=1, Name = "mq", Value = "25"
+                },
+                new Model.RoomProp()
+                {
+                    Id=2, Name = "persons", Value = "3"
+                }
+            }
+        });
+
+        rooms.Add(new Model.Room()
+        {
+            Id = 1,
+            Name = "Economy",
+            IsActive = true,
+            Price = 90,
+            Props = new List<Model.RoomProp>()
+{
+                new Model.RoomProp()
+                {
+                    Id=1, Name = "mq", Value = "10"
+                },
+                new Model.RoomProp()
+                {
+                    Id=2, Name = "persons", Value = "1"
+                }
+            }
+        });
+    }
+}

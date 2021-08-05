@@ -82,6 +82,48 @@ using HiddenVilla_Client.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\_Imports.razor"
+using Blazored.LocalStorage;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\_Imports.razor"
+using Helper;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\_Imports.razor"
+using Common;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 15 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\_Imports.razor"
+using Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 16 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\_Imports.razor"
+using HiddenVilla_Client.Services;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\Pages\Index.razor"
+using HiddenVilla_Client.Model.ViewModel;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -90,6 +132,33 @@ using HiddenVilla_Client.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 74 "C:\Users\matte\source\repos\HiddenVilla\HiddenVilla_Client\Pages\Index.razor"
+       
+
+    public HomeVM HomeModel { get; set; } = new HomeVM();
+
+    private async Task SaveInitialData()
+    {
+        try
+        {
+            HomeModel.EndDate = HomeModel.StartDate.AddDays(HomeModel.NoOfNights);
+            await LocalStorage.SetItemAsync(SD.LOCAL_INITIAL_BOOKING, HomeModel);
+            NavigationManager.NavigateTo("hotel/rooms", true);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.ToastrError(ex.Message);
+        }
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Blazored.LocalStorage.ILocalStorageService LocalStorage { get; set; }
     }
 }
 #pragma warning restore 1591

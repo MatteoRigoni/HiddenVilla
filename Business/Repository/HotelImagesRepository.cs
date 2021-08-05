@@ -41,7 +41,7 @@ namespace Business.Repository
             var image = await _db.HotelRoomImages.Where(x => x.RoomImageUrl == url).FirstOrDefaultAsync();
             if (image != null)
             {
-                _db.HotelRoomImages.Remove(image);
+                _db.HotelRoomImages.Remove(image); 
                 return await _db.SaveChangesAsync();
             }
 

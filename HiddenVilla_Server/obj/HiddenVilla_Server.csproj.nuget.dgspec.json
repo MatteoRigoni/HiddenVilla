@@ -30,6 +30,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "C:\\Users\\matte\\source\\repos\\HiddenVilla\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\matte\\source\\repos\\HiddenVilla\\Common\\Common.csproj"
+              },
               "C:\\Users\\matte\\source\\repos\\HiddenVilla\\DataAccess\\DataAccess.csproj": {
                 "projectPath": "C:\\Users\\matte\\source\\repos\\HiddenVilla\\DataAccess\\DataAccess.csproj"
               },

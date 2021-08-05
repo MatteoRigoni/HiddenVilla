@@ -40,7 +40,7 @@ namespace Business.Repository
             if (roomDetails != null)
             {
                 var allImages = await _db.HotelRoomImages.Where(x => x.RoomId == roomId).ToListAsync();
-                
+
                 _db.HotelRoomImages.RemoveRange(allImages);
                 _db.HotelRooms.Remove(roomDetails);
                 return await _db.SaveChangesAsync();
@@ -49,12 +49,20 @@ namespace Business.Repository
             return 0;
         }
 
-        public async Task<IEnumerable<HotelRoomDto>> GetAllHotelRooms()
+        public async Task<IEnumerable<HotelRoomDto>> GetAllHotelRooms(string checkinDate, string checkoutDate)
         {
             try
             {
-                IEnumerable<HotelRoomDto> hotelRoomDTOs = 
-                    _mapper.Map<IEnumerable<HotelRoom>, IEnumerable<HotelRoomDto>>( _db.HotelRooms.Include(x => x.HotelRoomImages));
+                IEnumerable<HotelRoomDto> hotelRoomDTOs =
+                    _mapper.Map<IEnumerable<HotelRoom>, IEnumerable<HotelRoomDto>>(_db.HotelRooms.Include(x => x.HotelRoomImages));
+
+                if (!string.IsNullOrEmpty(checkinDate) && !string.IsNullOrEmpty(checkoutDate))
+                {
+                    foreach (var hotelRoom in hotelRoomDTOs)
+                    {
+                        hotelRoom.IsBooked = await IsRoomBooked(hotelRoom.Id, checkinDate, checkoutDate);
+                    }
+                }
 
                 return hotelRoomDTOs;
             }
@@ -64,13 +72,18 @@ namespace Business.Repository
             }
         }
 
-        public async Task<HotelRoomDto> GetHotelRoom(int roomId)
+        public async Task<HotelRoomDto> GetHotelRoom(int roomId, string checkinDate, string checkoutDate)
         {
             try
             {
                 HotelRoomDto hotelRoomDTO =
                     _mapper.Map<HotelRoom, HotelRoomDto>(
                         await _db.HotelRooms.Include(x => x.HotelRoomImages).FirstOrDefaultAsync(x => x.Id == roomId));
+
+                if (!string.IsNullOrEmpty(checkinDate) && !string.IsNullOrEmpty(checkoutDate))
+                {
+                    hotelRoomDTO.IsBooked = await IsRoomBooked(roomId, checkinDate, checkoutDate);
+                }
 
                 return hotelRoomDTO;
             }
@@ -96,7 +109,7 @@ namespace Business.Repository
                 {
                     HotelRoomDto hotelRoomDTO =
                         _mapper.Map<HotelRoom, HotelRoomDto>(
-                            await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower() 
+                            await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
                             && x.Id != roomId));
 
                     return hotelRoomDTO != null;
@@ -105,6 +118,35 @@ namespace Business.Repository
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public async Task<bool> IsRoomBooked(int roomId, string checkinDateStr, string checkoutDateStr)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(checkoutDateStr) && !string.IsNullOrEmpty(checkinDateStr))
+                {
+                    DateTime checkinDate = DateTime.ParseExact(checkinDateStr, "MM/dd/yyyy", null);
+                    DateTime checkoutDate = DateTime.ParseExact(checkoutDateStr, "MM/dd/yyyy", null);
+
+                    var existingBooking = await _db.RoomOderDetail.Where(x => x.RoomId == roomId && x.IsPaymentSuccessful &&
+                                           ((checkinDate < x.CheckoutDate && checkinDate.Date > x.CheckinDate)
+                                           || (checkoutDate.Date > x.CheckinDate.Date && checkoutDate.Date < x.CheckinDate.Date)
+                                           )).FirstOrDefaultAsync();
+
+                    if (existingBooking != null)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 

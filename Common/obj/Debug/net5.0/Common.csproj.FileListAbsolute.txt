@@ -2,7 +2,6 @@ C:\Users\matte\source\repos\HiddenVilla\Common\bin\Debug\net5.0\Common.deps.json
 C:\Users\matte\source\repos\HiddenVilla\Common\bin\Debug\net5.0\Common.dll
 C:\Users\matte\source\repos\HiddenVilla\Common\bin\Debug\net5.0\ref\Common.dll
 C:\Users\matte\source\repos\HiddenVilla\Common\bin\Debug\net5.0\Common.pdb
-C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.csprojAssemblyReference.cache
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.AssemblyInfoInputs.cache
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.AssemblyInfo.cs
@@ -10,3 +9,4 @@ C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.csproj.Co
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.dll
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\ref\Common.dll
 C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.pdb
+C:\Users\matte\source\repos\HiddenVilla\Common\obj\Debug\net5.0\Common.csprojAssemblyReference.cache

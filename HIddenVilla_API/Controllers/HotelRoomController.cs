@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,16 +21,42 @@ namespace HIddenVilla_API.Controllers
             _hotelRoomRepository = hotelRoomRepository;
         }
         
-        [Authorize(Roles = Common.SD.ROLE_ADMIN)]
+        //[Authorize(Roles = Common.SD.ROLE_ADMIN)]
         [HttpGet]
-        public async Task<IActionResult> GetHotelRooms()
+        public async Task<IActionResult> GetHotelRooms(string checkinDate = null, string checkoutDate = null)
         {
+            if (string.IsNullOrEmpty(checkinDate) || string.IsNullOrEmpty(checkoutDate))
+            {
+                return BadRequest(new ErrorModel()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = "All parameters must be supplied!"
+                });
+            }
+
+            if (!DateTime.TryParseExact(checkinDate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dtCheckInDate))
+            {
+                return BadRequest(new ErrorModel()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = "Invalid checkin date format, must be MM/dd/yyyy"
+                });
+            }
+            if (!DateTime.TryParseExact(checkoutDate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dtCheckOutDate))
+            {
+                return BadRequest(new ErrorModel()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = "Invalid checkout date format, must be MM/dd/yyyy"
+                });
+            }
+
             var allRooms = await _hotelRoomRepository.GetAllHotelRooms();
             return Ok(allRooms);
         }
 
         [HttpGet("{roomId}")]
-        public async Task<IActionResult> GetHotelRoom(int? roomId)
+        public async Task<IActionResult> GetHotelRoom(int? roomId, string checkinDate = null, string checkoutDate = null)
         {
             if (roomId == null)
             {

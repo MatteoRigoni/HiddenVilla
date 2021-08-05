@@ -1,0 +1,44 @@
+﻿@page "/login"
+
+<h1 class="h3 mb-3 pt-3 font-weight-normal text-primary" style="text-align:center;">Sign In</h1>
+
+@if (UserForAuthentication != null)
+{
+    <div class="row">
+        <EditForm Model="UserForAuthentication" OnValidSubmit="LoginUser" class="col-4 offset-4">
+            <DataAnnotationsValidator />
+
+            @if (ShowAuthenticationErrors)
+            {
+                <div>
+                    @foreach (var error in Errors)
+                    {
+                        <p class="text-danger text-center">@error</p>
+                    }
+                </div>
+            }
+
+            <InputText @bind-Value="UserForAuthentication.Username" id="email" placeholder="Email..." class="form-control mb-2" />
+            <ValidationMessage For="(() => UserForAuthentication.Username)" ></ValidationMessage>
+            <InputText @bind-Value="UserForAuthentication.Password" placeholder="Password..." id="password" class="form-control mb-2" />
+            <ValidationMessage For="(() => UserForAuthentication.Password)" ></ValidationMessage>
+
+            @if (IsProcessing)
+            {
+                <button type="submit" class="btn btn-success btn-block disabled" style="margin-right: 2rem"><i class="fas fa-sign-in-alt"></i> Please wait...</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+            }
+
+            <a href="/registration"
+               class="btn btn-primary text-white ml-2"><i class="fas fa-user-plus"></i> Register as a new user</a>
+        </EditForm>
+    </div>
+}
+
+
+@code {
+
+}

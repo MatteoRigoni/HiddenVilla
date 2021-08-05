@@ -203,13 +203,13 @@
       "System.Private.CoreLib.dll": "sha256-PbMTdb+kswRpFmuD8S4hY70nkZ9LeYJg7y3wm7hj0CQ=",
       "Common.dll": "sha256-eeckhFXsIzxmzOO\/fxEuEFybruUkmSQlFGRzv\/Jlo2U=",
       "Models.dll": "sha256-+lgpAy+rk2vgCxcR\/WzGP5Ri+Nv7mvUXPd40kbZ7WLw=",
-      "HiddenVilla_Client.dll": "sha256-OxuclSepakHxXYO90VNLjzMVpCmSi4+JWyqI40rha9E="
+      "HiddenVilla_Client.dll": "sha256-\/t+Cx0\/gP2HCZOxojwraaBMHeq+gJ8lWU+RXJ8E\/k1g="
     },
     "lazyAssembly": null,
     "pdb": {
       "Common.pdb": "sha256-KcvqRw6EAAS+kgBua13lMqnaSBUS4ZyBAJL\/qDZ\/Ds0=",
       "Models.pdb": "sha256-ZwQAVGLi80CoySzz3Yoe4miGoomIWBmI5R6dA7NHlvw=",
-      "HiddenVilla_Client.pdb": "sha256-npbZeplJXgxkFnDO30fHLpL9s5coXR2kQ3qTTDBZDVM="
+      "HiddenVilla_Client.pdb": "sha256-8M9+kqWvgp1jn9ntjsO9BogmIfz\/hpvMBUnL8k6NZIU="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-SQvzbzBfueaAxSKIKE1khBH02NH2MJJaWDBav\/S5MSs=",

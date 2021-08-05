@@ -79,9 +79,5 @@ namespace HIddenVilla_API.Helpers
             }
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
